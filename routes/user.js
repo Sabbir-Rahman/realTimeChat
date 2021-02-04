@@ -13,7 +13,7 @@ const router = express.Router()
 router
     .get('/', userController.getAll)
     .post('/middleware-login-demo', auth.encode, (req, res) => {
-            return res.status(200).json({ success: true, data: req.information })
+            return res.status(200).json({ success: true, token: req.token })
         })
     .get('/:id', userController.getById)
     .post('/', userController.createUser)

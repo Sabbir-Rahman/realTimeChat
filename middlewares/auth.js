@@ -18,9 +18,9 @@ const auth = {
         }
         //check login
 
-        const authToken = jwt.sign(payload, SECRET_KEY)
-        console.log(authToken)
-        req.information = payload
+        const token = jwt.sign(payload, SECRET_KEY)
+        req.token = token
+        
         next()
     }
 
