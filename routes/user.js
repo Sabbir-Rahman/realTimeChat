@@ -11,7 +11,7 @@ const router = express.Router()
 //put means edit
 
 router
-    .get('/', userController.getAll)
+    .get('/', auth.decode, userController.getAll)
     .post('/middleware-login-demo', auth.encode, (req, res) => {
             return res.status(200).json({ success: true, token: req.token })
         })

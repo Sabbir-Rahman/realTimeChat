@@ -1,5 +1,6 @@
 const userController = {
     getAll: (req, res, next) => {
+        console.log(req.information)
         return res.status(200).json({ success:true, message: 'Job well done' })
     },
     getById: (req, res, next) => {
@@ -32,7 +33,7 @@ const userController = {
             isBodyValid = false
             errors['usertype'] = 'This should be a string & not empty'
         } else {
-            const checks = ['user', 'admin', 'support']
+            const checks = ['teacher', 'admin', 'student','officials']
             const found = checks.some(check => check === usertype)
 
             if (!found) {
