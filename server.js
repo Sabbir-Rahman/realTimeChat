@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 
 const port = 3000;
 
-app.use('/', userRouter)
+app.use('/user', userRouter)
 
 const server = http.createServer(app);
 server.listen(port)

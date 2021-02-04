@@ -2,6 +2,9 @@ const express = require('express')
 
 // controller
 const userController = require('../controllers/user')
+const auth = require('../middlewares/auth')
+
+
 
 const router = express.Router()
 
@@ -9,9 +12,13 @@ const router = express.Router()
 
 router
     .get('/', userController.getAll)
+    .post('/middleware-login-demo', auth.encode, (req, res) => {
+            return res.status(200).json({ success: true, data: req.information })
+        })
     .get('/:id', userController.getById)
     .post('/', userController.createUser)
     .put('/:id', userController.createUser)
     .delete(':id', userController.createUser)
+    
 
 module.exports = router
