@@ -3,16 +3,20 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 
+
+// list of all available routes
+const userRouter =  require('./routes/user')
+
 const app = express();
 
-app.use(cors());
-app.use(morgan('dev'));
+app.use(cors())
+app.use(morgan('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const port = 3000;
 
-app.use('/', (req, res, next) => {
-    return res.status(200).json({success:true, message: 'Job well done'})
-})
+app.use('/', userRouter)
 
 const server = http.createServer(app);
 server.listen(port)
