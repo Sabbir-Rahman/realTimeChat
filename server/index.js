@@ -1,15 +1,13 @@
 import http from "http";
-import express from "express";
+import { Server } from 'socket.io';
+import express from 'express';
+import { createServer } from 'http';
 import logger from "morgan";
-
-import socketio from "socket.io";
-
-// socket configuration
-import WebSockets from "../utils/WebSockets.js";
-
 import cors from "cors";
 // mongo connection
 import "../config/mongo.js";
+// socket configuration
+import WebSockets from "../utils/WebSockets.js";
 // routes
 import indexRouter from "../routes/index.js";
 import userRouter from "../routes/user.js";
@@ -19,6 +17,7 @@ import deleteRouter from "../routes/delete.js";
 import { decode } from '../middlewares/jwt.js'
 
 const app = express();
+
 
 /** Get port from environment and store in Express. */
 const port = process.env.PORT || "3000";
@@ -43,11 +42,10 @@ app.use('*', (req, res) => {
 
 /** Create HTTP server. */
 const server = http.createServer(app);
-
+const socketio = new Server(server);
 /** Create socket connection */
 global.io = socketio.listen(server);
 global.io.on('connection', WebSockets.connection)
-
 /** Listen on provided port, on all network interfaces. */
 server.listen(port);
 /** Event listener for HTTP server "listening" event. */
