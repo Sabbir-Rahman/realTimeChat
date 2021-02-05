@@ -1,24 +1,13 @@
-const express = require('express')
+import express from 'express';
+// controllers
+import user from '../controllers/user.js';
 
-// controller
-const userController = require('../controllers/user')
-const auth = require('../middlewares/auth')
-
-
-
-const router = express.Router()
-
-//put means edit
+const router = express.Router();
 
 router
-    .get('/', auth.decode, userController.getAll)
-    .post('/middleware-login-demo', auth.encode, (req, res) => {
-            return res.status(200).json({ success: true, token: req.token })
-        })
-    .get('/:id', userController.getById)
-    .post('/', userController.createUser)
-    .put('/:id', userController.createUser)
-    .delete(':id', userController.createUser)
-    
+  .get('/', user.onGetAllUsers)
+  .post('/', user.onCreateUser)
+  .get('/:id', user.onGetUserById)
+  .delete('/:id', user.onDeleteUserById)
 
-module.exports = router
+export default router;

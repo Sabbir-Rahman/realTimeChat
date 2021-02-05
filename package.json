@@ -1,14 +1,12 @@
 {
   "name": "realTimeChat",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/index.js",
+    "start:server": "node server/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@withvoid/make-validation": "^1.0.5",
     "cors": "^2.8.5",
