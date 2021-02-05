@@ -51,7 +51,23 @@ export default {
             return res.status(500).json({ success: false, error: error })
           }
      },
-    getRecentConversation: async (req, res) => { },
+    getRecentConversation: async (req, res) => {
+      try {
+        const currentLoggedUser = req.userId;
+        const options = {
+          page: parseInt(req.query.page) || 0,
+          limit: parseInt(req.query.limit) || 10,
+        };
+        const rooms = await ChatRoomModel.getChatRoomsByUserId(currentLoggedUser);
+        const roomIds = rooms.map(room => room._id);
+        const recentConversation = await ChatMessageModel.getRecentConversation(
+          roomIds, options, currentLoggedUser
+        );
+        return res.status(200).json({ success: true, conversation: recentConversation });
+      } catch (error) {
+        return res.status(500).json({ success: false, error: error })
+      }
+     },
     getConversationByRoomId: async (req, res) => {
         try {
             const { roomId } = req.params;

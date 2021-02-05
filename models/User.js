@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+/**
+ * @param {String} firstName
+ * @param {String} lastName
+ * @returns {Object} new user object created
+ */
 //static method
 userSchema.statics.createUser = async function (
 	    firstName, 
@@ -37,6 +42,11 @@ userSchema.statics.createUser = async function (
   }
 }
 
+/**
+ * @param {String} id, user id
+ * @return {Object} User profile object
+ */
+
 userSchema.statics.getUserById = async function (id) {
     try {
       const user = await this.findOne({ _id: id });
@@ -47,9 +57,23 @@ userSchema.statics.getUserById = async function (id) {
     }
   }
 
+
+
+  /**
+ * @return {Array} List of all users
+ */
   userSchema.statics.getUsers = async function () {
     try {
       const users = await this.find();
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  userSchema.statics.getUserByIds = async function (ids) {
+    try {
+      const users = await this.find({ _id: { $in: ids } });
       return users;
     } catch (error) {
       throw error;
